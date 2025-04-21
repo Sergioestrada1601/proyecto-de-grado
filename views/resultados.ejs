@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultados Generales</title>
+    <link rel="stylesheet" href="/public/css/resultados.css">
+</head>
+<body>
+    <div class="main">
+        <h2>Resultados por Curso</h2>
+
+        <!-- Selección de Curso -->
+        <div class="select-group">
+            <div class="select-item">
+                <label for="cursoResultadosSelect">Curso:</label>
+                <select id="cursoResultadosSelect">
+                    <option value="">-- Seleccionar Curso --</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Selección de Evaluaciones por RA -->
+        <div id="seleccionEvaluaciones" style="margin-top: 20px; display: none;">
+            <h4>Para realizar el calculo del resultado de la competencia de abstraccion se debe seleccionar una evaluación para cada Resultado de Aprendizaje:</h4>
+            <div class="select-group">
+                <div class="select-item">
+                    <label>Interiorización</label>
+                    <select class="select-eva" data-ra="Interiorización"><option value="">--</option></select>
+                </div>
+                <div class="select-item">
+                    <label>Coordinación</label>
+                    <select class="select-eva" data-ra="Coordinación"><option value="">--</option></select>
+                </div>
+                <div class="select-item">
+                    <label>Encapsulación</label>
+                    <select class="select-eva" data-ra="Encapsulación"><option value="">--</option></select>
+                </div>
+                <div class="select-item">
+                    <label>Generalización</label>
+                    <select class="select-eva" data-ra="Generalización"><option value="">--</option></select>
+                </div>
+            </div>
+            <div class="button-container">
+                <button id="btnGenerarResultados">Ver Resultados</button>
+            </div>
+        </div>
+
+        <!-- Tabla Resultados Generales -->
+        <div class="table-container">
+            <table id="tablaResultadosGenerales">
+                <thead>
+                    <tr id="fila-titulos">
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Código</th>
+                        <th><span>Interiorización</span> <button class="btn-expand-ra" data-ra="Interiorización">+</button></th>
+                        <th><span>Coordinación</span> <button class="btn-expand-ra" data-ra="Coordinación">+</button></th>
+                        <th><span>Encapsulación</span> <button class="btn-expand-ra" data-ra="Encapsulación">+</button></th>
+                        <th><span>Generalización</span> <button class="btn-expand-ra" data-ra="Generalización">+</button></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div class="button-container" id="exportButtons" style="display: none; margin-top:20px;">
+            <button id="btnExportExcel">Exportar a Excel</button>
+            <button id="btnExportPDF">Exportar a PDF</button>
+        </div>
+         <!-- Modal Detalles de RA -->
+        <div id="modalVerDetallesRA" class="modal">
+            <div class="modal-content">
+                <h3>📘 Detalles del Resultado de Aprendizaje</h3>
+                <span class="btn-cerrar-modal" id="btnCerrarModalDetallesRA">&times;</span>
+                <div id="contenedorDetallesRA"></div>
+            </div>
+        </div>
+        <div class="button-container">
+            <button id="btnVerGraficoRA" disabled>📊 Ver Gráfico RA</button>
+        </div>
+        <!-- Modal del gráfico -->
+        <div id="modalGraficoRA" class="modal">
+            <div class="modal-content">
+                <h3>📈 Gráfico de Resultados</h3>
+                <span class="btn-cerrar-modal" id="btnCerrarGraficoRA">&times;</span>
+                <div class="select-group">
+                    <div class="select-item">
+                        <label for="tipoGraficoRA">Tipo de Gráfico:</label>
+                        <select id="tipoGraficoRA">
+                            <option value="">-- Seleccionar --</option>
+                            <option value="boxplot">Boxplot</option>
+                            <option value="histograma">Histograma</option>
+                            <option value="barras_nivel">Barras Apiladas por Nivel</option>
+                            <option value="radar">Radar</option>
+                            <option value="barras_estudiante">Barras por Estudiante</option>
+                            <option value="heatmap">Mapa de Calor</option>
+                        </select>
+                    </div>
+                    <div id="barraControlesGrafico" class="select-group" style="margin-top: 20px;"></div>
+                    <div class="select-item" id="modoAgrupacionContainer" style="display: none;">
+                        <label for="modoBarrasNivel">Agrupar por:</label>
+                        <select id="modoBarrasNivel">
+                            <option value="ra">Resultado de Aprendizaje</option>
+                            <option value="criterio">Criterio</option>
+                        </select>
+                    </div>
+                    <div class="select-item" id="selectRAContainer" style="display: none;">
+                        <label for="selectGraficoRA">Resultado de Aprendizaje:</label>
+                        <select id="selectGraficoRA">
+                            <option value="">-- Seleccionar --</option>
+                            <option value="Interiorización">Interiorización</option>
+                            <option value="Coordinación">Coordinación</option>
+                            <option value="Encapsulación">Encapsulación</option>
+                            <option value="Generalización">Generalización</option>
+                        </select>
+                    </div>
+                    
+                    <div class="select-item" id="modoRadarContainer" style="display: none;">
+                        <label for="modoRadar">Modo de visualización:</label>
+                        <select id="modoRadar">
+                            <option value="grupo">Promedio del Grupo</option>
+                            <option value="estudiante">Por Estudiante</option>
+                        </select>
+                    </div>
+                    <div class="select-item" id="selectEstudianteContainer" style="display: none;">
+                        <label for="selectEstudianteRadar">Estudiante:</label>
+                        <select id="selectEstudianteRadar">
+                            <option value="">-- Seleccionar --</option>
+                        </select>
+                    </div>
+                    
+                    
+                </div>
+
+                <div id="graficoBoxplotRA" style="width: 100%; height: 400px;"></div>
+                <div class="button-container" style="margin-top: 15px;">
+                    <button id="btnDescargarGrafico">📥 Descargar gráfico (PDF)</button>
+                </div>
+            </div>
+                       
+        </div>        
+    </div>
+
+    <!-- SheetJS para exportar a Excel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- jsPDF y autoTable para exportar a PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <!-- Librerías Chart.js y BoxPlot -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="/public/js/resultadoScript.js"></script>
+
+</body>
+</html>

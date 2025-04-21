@@ -1,0 +1,618 @@
+/* 🔹 Título principal */
+h2 {
+    text-align: center;
+    color: #1a73e8; /* Azul profesional */
+    margin-bottom: 20px;
+}
+
+/* 🔹 Selectores */
+/* 🔹 Mantiene el estilo pero hace los selectores más anchos */
+.select-group {
+    display: flex;
+    justify-content: space-between; /* Mantiene la distribución */
+    gap: 15px;
+    margin-bottom: 20px;
+}
+/*competencia estilo */
+/* 🔹 Contenedor principal: Mantiene los elementos en fila */
+.competencia-container {
+    display: flex;
+    align-items: center; /* Alinea verticalmente */
+    justify-content: flex-start; /* Mantiene los elementos alineados al inicio */
+    width: 100%;
+    margin-bottom: 10px; 
+}
+
+/* 🔹 Contenedor de la barra de selección */
+.competencia-item {
+    display: flex;
+    flex-direction: column; /* Coloca el label arriba y el select abajo */
+    flex-grow: 1; /* Permite que la barra crezca, pero sin reducirse demasiado */
+    width: 40%; 
+    min-width: 350px; /* 🔹 Evita que el select sea demasiado ancho */
+}
+
+/* 🔹 Ajuste del botón */
+.boton-crear {
+    display: flex;
+    justify-content: flex-start; /* Asegura que el botón no se vaya al borde derecho */
+    flex-shrink: 0; /* Evita que el botón se reduzca */
+    margin-right: 25%;/* 🔹 Empuja el botón un poco a la derecha */
+    margin-top: 20px; 
+}
+/* 🔹 Espaciado entre label y select */
+.competencia-item label {
+    font-family: "Ubuntu", sans-serif; /* Cambia por la tipografía que estés usando */
+    font-size: 16px; /* Tamaño de fuente */
+    color: #161515; 
+    margin-bottom: 5px; 
+}
+#btnCrearEvaluacion {
+    background: #5333ed;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    white-space: nowrap;
+    
+}
+#btnCrearEvaluacion:hover {
+    background: #521fa3;
+}
+/* 🔹 Asegura que el select mantenga su tamaño */
+.competencia-item select {
+    width: 83%; /* Un poco más de la mitad de la página */
+    max-width: 800px; /* Máximo para que no sean demasiado grandes */
+    padding: 10px;
+    border: 2px solid #1a73e8;
+    border-radius: 8px;
+    background: #ffffff;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+}
+/* 🔹 Ajuste del botón */
+.boton-ver {
+    display: flex;
+    justify-content: flex-start; /* Asegura que el botón no se vaya al borde derecho */
+    flex-shrink: 0; /* Evita que el botón se reduzca */
+    margin-right: 26%;/* 🔹 Empuja el botón un poco a la derecha */
+    margin-top: 20px; 
+}
+#btnVerEvaluacion {
+    background: #5333ed;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    white-space: nowrap;
+    
+}
+#btnVerEvaluacion:hover {
+    background: #521fa3;
+}
+.boton-estudiante {
+    display: flex;
+    justify-content: flex-start; /* Asegura que el botón no se vaya al borde derecho */
+    flex-shrink: 0; /* Evita que el botón se reduzca */
+    margin-right: 23%;/* 🔹 Empuja el botón un poco a la derecha */
+    margin-top: 20px; 
+}
+#btnAgregarEstudiante {
+    background: #5333ed;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    white-space: nowrap;
+    
+}
+#btnAgregarEstudiante:hover {
+    background: #521fa3;
+}
+
+/* 🔹 Ajuste solo para los selectores de evaluación */
+.select-group select,
+#resultadoAprendizaje {
+    width: 18%; /* Un poco más de la mitad de la página */
+    max-width: 700px; /* Máximo para que no sean demasiado grandes */
+    padding: 6px 10px; /* Menos padding vertical */
+    height: 34px; /* Altura fija más pequeña */
+    line-height: 1.2; /* Ajusta alineación del texto */
+    border: 2px solid #1a73e8;
+    border-radius: 8px;
+    background: #ffffff;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+}
+#nuevoNombreEvaluacion {
+    width: 18%;
+    max-width: 700px;
+    padding: 6px 10px;
+    height: 34px;
+    line-height: 1.2;
+    border: 2px solid #1a73e8;
+    border-radius: 8px;
+    background: #ffffff;
+    font-size: 14px;
+    color: #333;
+    outline: none;
+    box-sizing: border-box;
+}
+.campo-evaluacion {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5px; /* espacio entre campos */
+}
+
+/* 🔹 Tabla de evaluación */
+.table-container {
+    width: 100%;
+    overflow-x: auto; /* Agrega la barra de desplazamiento horizontal */
+    white-space: nowrap; /* Evita que el contenido se divida en múltiples líneas */
+    border: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+/* Ajustar la tabla dentro del contenedor */
+.table-container table {
+    width: max-content; /* Asegurar que la tabla no se reduzca */
+    border-collapse: collapse;
+}
+
+/* Ajustar las celdas de la tabla */
+.table-container th, 
+.table-container td {
+    padding: 5px;
+    text-align: center;
+    min-width: 60px; /* Asegurar que cada columna tenga un tamaño mínimo */
+}
+
+/* Estilo de la barra de desplazamiento */
+.table-container::-webkit-scrollbar {
+    height: 10px;
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+.puntaje-input {
+    width: 50px; /* Ajusta el ancho del input */
+    height: 25px; /* Ajusta la altura del input */
+    text-align: center; /* Centrar el texto */
+    font-size: 14px; /* Reducir el tamaño de la fuente */
+    padding: 2px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    background: #5333ed;
+    color: white;
+}
+.input-error {
+    border: 2px solid red !important;
+    background-color: #ffe6e6;
+}
+
+/* 🔹 Estilo para inputs en la tabla */
+input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+.modal-content input[type="file"] {
+    width: 100%;
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 5px;
+    background: #f8f8f8;
+    cursor: pointer;
+}
+
+/* 🔹 Botón de envío */
+.btn-enviar {
+    width: 100%;
+    padding: 12px;
+    background: #1a73e8;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 15px;
+}
+
+.btn-enviar:hover {
+    background: #135abe;
+}
+/* Ajustar la tabla para evitar que se corte */
+#evaluacionTabla {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: auto; /* Permite que las columnas se ajusten */
+    overflow-x: auto; /* Agrega desplazamiento horizontal si es necesario */
+}
+
+button {
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #00509d;
+  }
+  .button-container {
+    margin-top: 15px;
+    margin-bottom: 15px;  /* Agrega un espacio entre la barra de selección y los botones */
+}
+/* 🔹 MODAL GENERAL */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #f9f9f9;
+    padding: 20px;
+    width: 50%;
+    max-height: 80vh;
+    overflow-y: auto;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    border: 3px solid #007BFF
+}
+
+/* 🔹 ENCABEZADO DEL MODAL */
+.modal-content h3 {
+    text-align: center;
+    font-size: 22px;
+    color: #003366;
+    margin-bottom: 15px;
+    position: relative;
+}
+.modal-content h3::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #007BFF; /* 🔵 Línea azul */
+    margin-top: 5px; /* Espacio entre el texto y la línea */
+}
+#raSeleccionado {
+    font-weight: bold;
+    color: #0056b3;
+}
+
+/* 🔹 CRITERIOS GENERALES */
+.criterio {
+    border: 1px solid #0056b3;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    background: #e6f2ff;
+}
+
+.criterio-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.criterio h4 {
+    margin: 0;
+    color: #003366;
+}
+
+.criterio-input {
+    width: 50px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #003366;
+    border: 1px solid #0056b3;
+}
+
+
+
+
+
+
+/* 🔹 BOTONES DE EXPANSIÓN */
+.btn-expandir, .btn-expandir-preguntas {
+    cursor: pointer;
+    background: #0056b3;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.btn-expandir:hover, .btn-expandir-preguntas:hover {
+    background: #003366;
+}
+
+/* 🔹 BOTONES DE ACCIÓN */
+.button-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+}
+
+.button-container button {
+    background: #5333ed;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.button-container button:hover {
+    background: #521fa3;
+}
+.button-container2 {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+}
+.button-container2 button {
+    background: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.button-container2 button:hover {
+    background: #003366;
+}
+
+/* 🔹 BOTÓN CERRAR (X) */
+.btn-cerrar-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #555;
+    cursor: pointer;
+    transition: 0.3s;
+    background: none;
+    border: none;
+}
+#modalVerEvaluacion .modal-content {
+    background: #f9f9f9;
+    padding: 20px;
+    width: 50%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    border: 3px solid #007BFF;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+}
+/* 🔹 Ajuste SOLO para el modal de Crear Evaluación */
+#modalCrearEvaluacion .modal-content {
+    width: 80%; /* Aumenta el ancho */
+    max-width: 1200px; /* Define un máximo para pantallas grandes */
+    height: 85vh; /* Aumenta la altura */
+    max-height: 90vh;
+    overflow-y: auto; /* Agrega scroll si el contenido es muy largo */
+}
+
+
+
+/* 🔹 ENCABEZADO DEL MODAL */
+#modalVerEvaluacion .modal-content h3 {
+    text-align: center;
+    font-size: 22px;
+    color: #003366;
+    margin-bottom: 15px;
+    position: relative;
+}
+
+#modalVerEvaluacion .modal-content h3::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #007BFF; /* 🔵 Línea azul */
+    margin-top: 5px;
+}
+
+/* 🔹 CONTENEDOR DE CRITERIOS */
+#contenedorCriteriosVer {
+    padding: 10px;
+}
+.btn-cerrar-modal:hover {
+    color: red;
+}
+#addStudentForm label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+  }
+  #addStudentForm input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    font-size: 1em;
+  }
+  
+  /* Estilos para los botones */
+  #addStudentForm button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    margin: 10px 5px;
+    background-color: #007BFF; /* Color de fondo azul */
+    color: white;
+    transition: background-color 0.3s ease;
+  }
+  
+  #addStudentForm button:hover {
+    background-color: #0056b3; /* Cambio de color al pasar el mouse */
+  }
+  
+  #addStudentForm button#uploadCSVBtn {
+    background-color: #17a2b8; /* Color diferente para el botón de CSV */
+  }
+  
+  #addStudentForm button#uploadCSVBtn:hover {
+    background-color: #138496;
+  }
+  
+  /* Estilos para la alineación de los botones */
+  #addStudentForm .buttons-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+}
+
+.criterio-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+}
+.indicador-header {
+    position: relative;
+    
+    align-items: center;
+    gap: 10px;
+}
+.pregunta-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+/* 🔹 Tooltip oculto por defecto */
+.criterio-detalle-tooltip, .indicador-detalle-tooltip, .pregunta-detalle-tooltip {
+    display: none;
+    position: absolute;
+    bottom: -30px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    white-space: normal;
+    word-wrap: break-word;
+    max-width: 250px;
+    z-index: 1000;
+    transition: opacity 0.2s ease-in-out;
+    opacity: 0;
+}
+
+/* 🔹 Muestra el tooltip cuando el usuario pasa el cursor */
+.criterio-nombre:hover + .criterio-detalle-tooltip {
+    display: block;
+    opacity: 1;
+}
+
+/* 🔹 Muestra el tooltip cuando el usuario pasa el cursor */
+.indicador-nombre:hover + .indicador-detalle-tooltip {
+    display: block;
+    opacity: 1;
+}
+
+.pregunta-nombre:hover + .pregunta-detalle-tooltip {
+    display: block;
+    opacity: 1;
+}
+.clasificador {
+    background: #f8f9fa;
+    padding: 10px;
+    gap: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: 1px solid #007BFF;
+    display: none;
+    transition: max-height 0.3s ease-in-out;
+}
+
+.btn-toggle-clasificador {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    margin-left: 10px;
+}
+
+
+/* Estilo de los inputs más pequeños */
+.criterio-nivel-basico, .criterio-nivel-intermedio, .criterio-nivel-alto, .indicador-nivel-basico, .indicador-nivel-intermedio, .indicador-nivel-alto {
+    width: 50px; /* Tamaño más compacto */
+    padding: 5px;
+    font-size: 0.9rem;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}

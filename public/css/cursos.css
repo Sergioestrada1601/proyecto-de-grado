@@ -1,0 +1,327 @@
+
+
+.content-configuracion .form-group {
+  margin-bottom: 15px;
+}
+.content-cursos {
+  padding-bottom: 100px; /* Espacio suficiente para evitar cortes */
+  overflow: auto; /* Agrega scroll si es necesario */
+  scrollbar-gutter: stable; /* Reserva espacio para el scroll */
+  position: relative; /* El botón se posiciona relativo a este contenedor */
+ overflow: hidden;
+}
+
+/* Estilos para las tarjetas de cursos */
+.cardBox {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Diseño de cuadrícula flexible */
+  gap: 20px; /* Espacio entre las tarjetas */
+  margin-top: 50px; /* Baja las cards para que no estén tan pegadas arriba */
+  padding-bottom: 20px;
+}
+  
+.card {
+  background-color: var(--white);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  transition: transform 0.3s, box-shadow 0.3s;
+  width: 380px;
+  height: 220px;
+  overflow: hidden;
+  position: relative;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+}
+
+.card h3 {
+  font-size: 1.3rem;
+  color: var(--blue);
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.card p {
+  font-size: 0.95rem;
+  color: #555;
+  margin: 3px 0;
+}
+
+
+/* Estilo para el menú de opciones que aparece al hacer clic en una card */
+.menu-opciones {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 0px;
+  z-index: 100;
+  width: 200px;
+  display: none;
+  box-sizing: border-box;  /* Asegura que padding se incluya en el tamaño */
+  overflow: hidden;
+}
+
+.menu-opciones button {
+  background-color: transparent;
+  border: none;
+  color: #333;
+  padding: 4px 16px;
+  margin: 0;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  box-sizing: border-box;
+}
+
+.menu-opciones button:last-child {
+  border-bottom: none;
+}
+
+.menu-opciones button:hover {
+  background-color: #f1f1f1;
+}
+.menu-opciones {
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+@media (max-width: 768px) {
+  .menu-opciones {
+    width: 150px;
+  }
+
+  .menu-opciones button {
+    font-size: 12px;
+    padding: 8px 16px;
+  }
+}
+  
+.numbers {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--blue);
+}
+  
+.cardName {
+  font-size: 1rem;
+  color: var(--black2);
+  text-overflow: ellipsis;
+}
+  
+.iconBx {
+  font-size: 2rem;
+  color: var(--blue);
+}
+  
+/* Botón de Añadir Nuevo Curso */
+.addCourse {
+  position: absolute; /* Fija el botón dentro de su contenedor padre */
+   top: 20px; /* Distancia desde la parte superior del contenedor */
+    right: 20px; /* Distancia desde la parte derecha */
+    width: fit-content;
+}
+  
+.addCourse .btn {
+  background-color: var(--blue);
+  color: var(--white);
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Agrega una sombra */
+ transition: background-color 0.3s; 
+}
+  
+.addCourse .btn:hover {
+  background-color: #00509d;
+}
+  
+  
+/* Estilos para el modal de añadir curso */
+/* Estilos para los modales */
+.modal {
+  display: none; /* Oculto por defecto */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(5, 5, 5, 0.87); /* Fondo oscuro semitransparente */
+}
+
+.modal-content {
+  max-height: 80vh; 
+  overflow-y: auto;
+  background-color: white;
+  margin: 5% auto;
+  padding: 10px;
+  border-radius: 10px;
+  width: 35%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  position: relative;
+  border: 3px solid #007BFF
+}
+.modal-content h2 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+/* aqui Línea debajo del título */
+.modal-content h2::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #007BFF; /* Color de la línea */
+}
+.modal-content .close {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.modal-content .close:hover {
+  color: red;
+}
+
+/* Estilo de los campos de entrada */
+.modal-content input[type="text"] {
+  width: 90%; /* Más compacto */
+  padding: 10px;
+  margin: 15px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.modal-content input[type="text"]:focus {
+  border-color: #007BFF; /* Color de borde al enfocar */
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+button {
+  background-color: #007BFF;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #00509d;
+}
+
+/* Espaciado entre los campos */
+.modal-content form {
+  margin-top: 20px;
+}
+#addStudentForm label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: bold;
+}
+#addStudentForm input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 15px;
+  font-size: 1em;
+}
+
+/* Estilos para los botones */
+#addStudentForm button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  cursor: pointer;
+  margin: 10px 5px;
+  background-color: #007BFF; /* Color de fondo azul */
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+#addStudentForm button:hover {
+  background-color: #0056b3; /* Cambio de color al pasar el mouse */
+}
+
+#addStudentForm button#uploadCSVBtn {
+  background-color: #17a2b8; /* Color diferente para el botón de CSV */
+}
+
+#addStudentForm button#uploadCSVBtn:hover {
+  background-color: #138496;
+}
+
+/* Estilos para la alineación de los botones */
+#addStudentForm .buttons-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15px;
+}
+.students-count {
+  font-size: 1rem;
+  color: var(--black2);
+  font-weight: bold;
+}
+/* Modal de lista de estudiantes */
+#studentListModal .modal-content {
+  width: 50%;
+  max-height: 70vh;
+  overflow-y: auto;
+  text-align: center;
+}
+
+#studentListModal table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#studentListModal th, #studentListModal td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+#studentListModal th {
+  background: #007BFF;
+  color: white;
+}
+
+#studentListModal .close {
+  font-size: 20px;
+  color: red;
+  cursor: pointer;
+}

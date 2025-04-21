@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluación</title>
+    <link rel="stylesheet" href="/public/css/evaluacion.css">
+</head>
+<body>
+    <div class="main">
+        <h2>Gestión de Evaluaciones</h2>
+        <div class="competencia-container">
+            <div class="competencia-item">
+                <label for="competenciaSelect">Competencia:</label>
+                <select id="competenciaSelect" disabled>
+                    <option selected>Competencia de Abstracción</option>
+                </select>
+            </div>
+            <div class="boton-crear">
+                <button id="btnCrearEvaluacion">Crear Evaluación</button>
+            </div>
+        </div>
+        <!-- Selección de Evaluación -->
+        <div class="competencia-container">
+            <div class="competencia-item">
+                <label for="evaluacionSelect">Selecciona una Evaluación:</label>
+                <select id="evaluacionSelect">
+                    <option value="">-- Seleccionar --</option>
+                </select>
+            </div>
+            <div class="boton-ver">
+                <button id="btnVerEvaluacion" disabled>Ver Evaluación</button>
+            </div>
+        </div>
+
+        
+        <!-- Selección de curso -->
+        <div class="competencia-container">
+            <div class="competencia-item">
+                <label for="cursoSelect">Selecciona un Curso:</label>
+                <select id="cursoSelect" disabled>
+                    <option value="">-- Seleccionar --</option>
+                </select>
+            </div>
+            <div class="boton-estudiante">
+                <button id="btnAgregarEstudiante">Agregar Estudiante</button>
+            </div>
+        </div>
+
+        
+        
+
+        <!-- Botones principales -->
+        <div class="button-container">
+            <button id="btnCargarPuntajes">Cargar Puntajes desde CSV</button>
+        </div>
+
+        <!-- Tabla dinámica -->
+        <div class="table-container">
+            <table id="evaluacionTabla" border="1">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Seleccionar</th>
+                        <th>Nombre del Estudiante</th>
+                        <th>Código del Estudiante</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Datos de estudiantes generados dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="button-container">
+            <button id="btnEnviarResultados">Enviar Evaluación</button>
+            <button id="btnEliminarSeleccionados" disabled>Eliminar Seleccionados</button>
+        </div>
+        <!-- Modal de Vista de Evaluación -->
+        <div id="modalVerEvaluacion" class="modal">
+            <div class="modal-content">
+                <h3>Detalles de la Evaluación</h3>
+                <button class="btn-cerrar-modal" id="btnCerrarModalVer">×</button>
+                <div id="contenedorCriteriosVer">
+                    <!-- Aquí se renderiza la evaluación seleccionada -->
+                </div>
+                <div class="button-container2">
+                    <button id="btnEditarEvaluacion">Editar Evaluación</button>
+                    <button id="btnEliminarEvaluacion">Eliminar Evaluación</button>
+                </div>
+            </div>
+        </div>
+        <!-- Modal para Crear Nueva Evaluación -->
+        <div id="modalCrearEvaluacion" class="modal">
+            <div class="modal-content">
+                <h3>Crear Nueva Evaluación</h3>
+                <p>Configuración basada en evaluación predeterminada</p>
+                <div class="campo-evaluacion">
+                    <label for="resultadoAprendizaje">Resultado de Aprendizaje:</label>
+                    <select id="resultadoAprendizaje">
+                        <option value="Interiorización">Interiorización</option>
+                        <option value="Coordinación">Coordinación</option>
+                        <option value="Encapsulación">Encapsulación</option>
+                        <option value="Generalización">Generalización</option>
+                    </select>
+                </div>
+                
+                
+                <!-- Botón "X" para cerrar -->
+                <button class="btn-cerrar-modal" id="btnCerrarModalCrear">×</button>
+                <div class="campo-evaluacion">
+                    <label for="nuevoNombreEvaluacion">Nombre de la Evaluación:</label>
+                    <input type="text" id="nuevoNombreEvaluacion" placeholder="Ingrese un nombre">
+                </div>
+
+                <div id="contenedorCriteriosCrear">
+                    <!-- Aquí se generan dinámicamente los criterios e indicadores -->
+                </div>
+        
+                <div class="button-container2">
+                    <button id="btnGuardarEvaluacion">Guardar Evaluación</button>
+                </div>
+            </div>
+        </div>
+
+        
+            <!-- Modal para añadir estudiantes -->
+        <div id="addStudentModal" class="modal">
+            <div class="modal-content">
+                <h2>Añadir Estudiante</h2>
+                <form id="addStudentForm" action="/addStudent" method="POST">
+                    <input type="hidden" id="selectedCourseId">
+                    <label for="studentCode">Codigo del Estudiante:</label>
+                    <input type="number" id="studentCode" name="studentCode" required>
+                    <br>
+                    <label for="studentName">Nombre del Estudiante:</label>
+                    <input type="text" id="studentName" name="studentName" required>
+                    <br>
+                    <label for="studentAge">Edad:</label>
+                    <input type="number" id="studentAge" name="studentAge" required>
+                    <br>
+                    <label for="studentEmail">Correo Electrónico:</label>
+                    <input type="email" id="studentEmail" name="studentEmail" required>
+                    <br>
+                    <button type="button" id="saveStudentBtn2">Guardar Estudiante</button>
+                    <button type="button" id="finishStudentBtn" onclick="closeStudentModal()">Finalizar</button>
+                    <!-- Campo de carga de CSV -->
+                    <label for="csvFile">Cargar Estudiantes desde CSV:</label>
+                    <input type="file" id="csvFile" accept=".csv">
+    
+                    <!-- Botón para subir el CSV -->
+                    <button type="button" id="uploadCSVBtn">Agregar por CSV</button>
+                    <button class="btn-cerrar-modal" id="btnCerrarModal1">×</button>
+                </form>
+            </div>
+        </div>
+        <!-- Modal para Cargar Puntajes desde CSV -->
+        <div id="modalCargarPuntajes" class="modal">
+            <div class="modal-content">
+                <h3>Cargar Puntajes desde CSV</h3>
+                <label for="csvPuntajes">Seleccionar archivo CSV:</label>
+                <input type="file" id="csvPuntajes" accept=".csv">
+                <div class="button-container2">
+                    <button id="btnSubirPuntajesCSV">Subir Puntajes</button>
+                    <button class="btn-cerrar-modal" id="btnCerrarModalPuntajes">×</button>
+                </div>
+            </div>
+        </div>
+        <!-- Modal informativo  -->
+        <div id="modalFormatoEstCSV" class="modal">
+            <div class="modal-content">
+                <h3>📄 Formato Correcto del Archivo CSV</h3>
+                <p>Para cargar estudiantes correctamente, tu archivo CSV debe seguir el siguiente formato:</p>
+        
+                <!-- Instrucciones sobre el formato esperado -->
+                <div class="instructions">
+                    <p><strong>📋 Estructura esperada:</strong></p>
+                    <ul>
+                        <li><strong>Columna 1:</strong> Código del Estudiante (Número)</li>
+                        <li><strong>Columna 2:</strong> Nombre del Estudiante (Texto, incluyendo acentos y caracteres especiales como é, á, ñ, etc.)</li>
+                        <li><strong>Columna 3:</strong> Edad del Estudiante (Número)</li>
+                        <li><strong>Columna 4:</strong> Correo Electrónico del Estudiante (Correo válido)</li>
+                    </ul>
+                    <p><strong>🔍 Nota:</strong> Asegúrate de guardar el archivo CSV con la codificación <strong>UTF-8</strong> para evitar problemas con caracteres especiales como acentos o eñes.</p>
+                </div>
+        
+                <!-- Ejemplo Visual del archivo CSV como imagen -->
+                <div class="example">
+                    <p><strong>📎 Ejemplo de archivo CSV:</strong></p>
+                    <img src="/public/images/ejemploEst-csv.png" alt="Ejemplo de archivo CSV" style="width: 100%; max-width: 600px; margin-top: 10px;">
+                    <p><small><i>Recuerda que los datos deben estar separados por comas y no debe haber comas adicionales al final de cada fila.</i></small></p>
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <button id="btnCerrarModalPunt" style="padding: 8px 20px; border: none; background-color: #5333ed; color: white; border-radius: 6px; font-size: 14px; cursor: pointer;">
+                        Aceptar
+                    </button>
+                </div>
+        
+                <!-- Cierre del modal -->
+                <button class="btn-cerrar-modal" id="btnCerrarModalEst">×</button>
+            </div>
+        </div> 
+        <div id="modalFormatoPuntajesCSV" class="modal" style="display: none;">
+            <div class="modal-content">
+                <h3>📄 Formato Correcto del Archivo CSV para Puntajes</h3>
+                <p>Para cargar los puntajes correctamente, tu archivo CSV debe seguir el siguiente formato:</p>
+        
+                <!-- Instrucciones sobre el formato esperado -->
+                <div class="instructions">
+                    <p><strong>📋 Estructura esperada:</strong></p>
+                    <ul>
+                        <li><strong>Columna 1:</strong> Código del Estudiante (Número)</li>
+                        <li><strong>Columna 2 - N:</strong> Puntajes de las preguntas (Números decimales, cada pregunta separada por coma)</li>
+                    </ul>
+                    <p><strong>🔍 Nota:</strong> Asegúrate de guardar el archivo CSV con la codificación <strong>UTF-8</strong> para evitar problemas con caracteres especiales.</p>
+                </div>
+        
+                <!-- Ejemplo Visual del archivo CSV como imagen -->
+                <div class="example">
+                    <p><strong>📎 Ejemplo de archivo CSV:</strong></p>
+                    <img src="/public/images/ejemploPunt-csv.png" alt="Ejemplo de archivo CSV para puntajes" style="width: 100%; max-width: 600px; margin-top: 10px;">
+                    <p><small><i>Recuerda que los puntajes deben estar separados por comas y no debe haber comas adicionales al final de cada fila.</i></small></p>
+                </div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <button id="btnCerrarModalPunt" style="padding: 8px 20px; border: none; background-color: #5333ed; color: white; border-radius: 6px; font-size: 14px; cursor: pointer;">
+                        Aceptar
+                    </button>
+                </div>
+                <!-- Cierre del modal -->
+                <button class="btn-cerrar-modal" id="btnCerrarModalPunt">×</button>
+                
+            </div>
+        </div>
+                    
+    </div>
+    <script src="/public/js/evaluacionScript.js"></script>
+</body>
+</html>

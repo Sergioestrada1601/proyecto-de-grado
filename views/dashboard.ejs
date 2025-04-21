@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dashboard usuario</title>
+    <!-- ======= Styles ====== -->
+    <link rel="stylesheet" href="/public/css/estilos2.css">
+</head>
+
+<body>
+    <!-- =============== Navigation ================ -->
+    <div class="container">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="#">
+                        <span class="icon_u">
+                            <img src="/public<%= datos.fotoPerfil %>" alt="icon_user" style="width: 78px; height: 78px; padding-left: 0; object-fit: cover; border-radius: 50%;">
+
+                        </span>
+                        <span class="username"><%= datos.nombreusuario %></span>
+                    </a>
+                </li>
+
+                <li>
+                    <button type="button" class="icon-btn" id="btnInicio">
+                        <span class="icon">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </span>
+                        <span class="title">Inicio</span>
+                    </button>
+                </li>
+                
+                <li>
+                    <button type="button" class="icon-btn" id="btnCursos">
+                        <span class="icon">
+                            <ion-icon name="book-outline"></ion-icon>
+                        </span>
+                        <span class="title">   Cursos</span>
+                    </button>
+                </li>
+
+                <li>
+                    <button type="button" class="icon-btn" id="btnEvaluacion">
+                        <span class="icon">
+                            <ion-icon name="clipboard-outline"></ion-icon>
+                        </span>
+                        <span class="title">Evaluaciones</span>
+                    </button>
+                </li>
+
+                <li>
+                    <button type="button" class="icon-btn" id="btnResultado">
+                        <span class="icon">
+                            <ion-icon name="document-text-outline"></ion-icon>
+                        </span>
+                        <span class="title">Resultados</span>
+                    </button>
+                </li>
+
+                <li>
+                    <button type="button" class="icon-btn" id="btnConfiguracion">
+                        <span class="icon">
+                            <ion-icon name="settings-outline"></ion-icon>
+                        </span>
+                        <span class="title">Configuraciones</span>
+                    </button>
+                </li>
+
+                
+
+                <li>
+                    <form action="/codcerrar" method="post">
+                        <button type="submit" class="icon-btn">
+                            <span class="icon">
+                                <ion-icon name="log-out-outline"></ion-icon>
+                            </span>
+                            <span class="title">Cerrar sesión</span>
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+
+        <!-- ========================= Main ==================== -->
+        <div class="main">
+            <div class="topbar">
+                <div class="toggle">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
+
+                <div class="search">
+                    <label>
+                        <input type="text" placeholder="Buscar...">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </label>
+                </div>
+
+                <div class="logoapp">
+                    <img src="/public/images/logoApp.png" alt="mi_logo">
+                </div>
+                
+            </div>
+            
+            
+
+            <!-- Toast para mostrar mensajes flotantes -->
+            <div id="toast" class="toast">
+                ¡Curso agregado exitosamente
+            </div>
+            <!-- ======================= Contenido Dinámico ================== -->
+            <div id="dynamicContent">
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- =========== Scripts =========  -->
+    <script src="/public/js/script2.js"></script>
+    <script src="/public/js/cursos.js"></script>
+    <script src="/public/js/configuracionScript.js"></script>
+    <script src="/public/js/inicio-cliente.js" defer></script>
+    
+
+    <!-- ====== ionicons ======= -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+    <!-- Script para la carga dinámica -->
+    <script>
+        document.getElementById("btnInicio").addEventListener("click", function () {
+        fetch("/inicio")
+          .then(response => response.text())
+          .then(html => {
+            const container = document.getElementById("dynamicContent");
+            container.innerHTML = html;
+      
+            // Ahora sí, la función siempre existe porque el script ya fue cargado
+            if (typeof setupInicioCards === 'function') {
+              setupInicioCards();
+            } else {
+              console.error("⚠️ setupInicioCards no está disponible");
+            }
+          })
+          .catch(error => console.error('Error cargando inicio:', error));
+        });
+      
+
+
+        document.getElementById("btnCursos").addEventListener("click", function() {
+            fetch("/cursos")  // Llama a la ruta /cursos
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById("dynamicContent").innerHTML = html;  // Inserta el HTML en el contenido dinámico
+                    setupCourseMenu();
+                })
+            .catch(error => console.error('Error cargando cursos:', error));
+        });
+         
+        document.getElementById("btnConfiguracion").addEventListener("click", function() {
+            // Hacer una solicitud a la ruta correcta para cargar la vista de configuración
+            fetch("/configuracion")
+                .then(response => response.text())
+                .then(html => {
+                    // Insertar el contenido en el contenedor dinámico del dashboard
+                    document.getElementById("dynamicContent").innerHTML = html;
+                })
+                .catch(error => console.error('Error cargando la configuración:', error));
+        });
+        
+        document.getElementById("btnEvaluacion").addEventListener("click", function() {
+            // Hacer una solicitud a la ruta correcta para cargar la vista de evaluación
+            fetch("/evaluacion")
+                .then(response => response.text())
+                .then(html => {
+                    // Insertar el contenido en el contenedor dinámico del dashboard
+                    document.getElementById("dynamicContent").innerHTML = html;
+                    setupEvaluacion();
+                    setupCrearEvaluacion();
+                    setupAgregarEstudiante();
+                    setupEliminarEstudiantes();
+                    setupVerEvaluacion();
+                    setupEditarEvaluacion();
+                    setupCargarPuntajes();
+                    setupValidacionResultados();
+                })
+                .catch(error => console.error('Error cargando la evaluación:', error));
+            });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const seccion = localStorage.getItem("seccionActiva");
+            if (seccion === "evaluacion") {
+                const btn = document.getElementById("btnEvaluacion");
+                if (btn) btn.click();
+                localStorage.removeItem("seccionActiva");
+            }
+        });
+
+        document.getElementById("btnResultado").addEventListener("click", function() {
+            console.log("boton resultados")
+            // Hacer una solicitud a la ruta correcta para cargar la vista de configuración
+            fetch("/resultados")
+                .then(response => response.text())
+                .then(html => {
+                    // Insertar el contenido en el contenedor dinámico del dashboard
+                    document.getElementById("dynamicContent").innerHTML = html;
+                    setupResultadosGenerales();
+                    setupGraficoRA();
+                    setupExportButtons();
+                    
+                })
+                .catch(error => console.error('Error cargando los resultados', error));
+        });
+    </script>
+    <!-- SheetJS para exportar a Excel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <!-- jsPDF y autoTable para exportar a PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="/public/js/evaluacionScript.js"></script>
+    <script src="/public/js/resultadoScript.js"></script>
+</body>
+
+</html>

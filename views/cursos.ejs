@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursos</title>
+    <!-- ======= Styles ====== -->
+    
+    <link rel="stylesheet" href="/public/css/cursos.css">
+</head>
+
+<body>
+    <!-- ========================= Main ==================== -->
+    <div class="content-cursos">
+        <div class="main">
+            <% 
+            const iconosCursos = ["book-outline", "school-outline", "clipboard-outline", "briefcase-outline"];
+            %>
+            <!-- ======================= Cards ================== -->
+            <div class="cardBox">
+                <% cursos.forEach(function(curso) { 
+                    const iconoAleatorio = iconosCursos[Math.floor(Math.random() * iconosCursos.length)];
+                %>
+                <div class="card" data-curso-id="<%= curso.curso_id %>" data-curso-nombre="<%= curso.nombre_curso %>" data-curso-colegio="<%= curso.colegio %>">
+                    <div>
+                        <div class="numbers"><%= curso.nombre_curso %></div>
+                        <div class="cardName">Institucion: <%= curso.colegio %></div>
+                        <div class="cardName">👥 Estudiantes: <span class="students-count" data-curso-id="<%= curso.curso_id %>"><%= curso.num_estudiantes %></span></div>
+                    </div>
+                    <div class="iconBx">
+                        <ion-icon name="<%= iconoAleatorio %>"></ion-icon>
+                    </div>
+                    <div class="menu-opciones" style="display: none;">
+                        <button class="opcion" data-action="add-students">Añadir estudiantes</button>
+                        <button class="opcion" data-action="show-students">Mostrar Estudiantes</button>
+                        <button class="opcion" data-action="edit">Editar curso</button>
+                        <button class="opcion" data-action="delete">Eliminar curso</button>
+                        <button class="opcion" data-action="duplicate">Duplicar curso</button>
+                    </div>
+                </div>
+                <% }); %>
+            </div>
+
+            <!-- ================ Añadir Curso ================= -->
+            <div class="addCourse">
+                <button id="addCourseBtn" class="btn">Añadir nuevo curso</button>
+            </div>
+        
+    
+
+    <!-- Modal para añadir curso -->
+    <div id="addCourseModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Añadir Nuevo Curso</h2>
+            <form id="addCourseForm" action="/addCourse" method="POST">
+                <label for="nombre_curso">Nombre del Curso:</label>
+                <input type="text" id="nombre_curso" name="nombre_curso" required>
+                <br>
+                <label for="colegio">Institucion:</label>
+                <input type="text" id="colegio" name="colegio" required>
+                <br>
+                <button type="submit">Agregar Curso</button>
+            </form>
+        </div>
+    </div>
+    <div id="editCourseModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal2()">&times;</span>
+            <h2>Editar Curso</h2>
+            <form id="editCourseForm" action="/editCourse" method="POST" >
+                <input type="hidden" id="editCursoId"> <!-- Guardar el ID del curso oculto -->
+                <div>
+                    <label for="editNombreCurso">Nombre del Curso:</label>
+                    <input type="text" id="editNombreCurso" name="nombre_curso" required>
+                </div>
+                <div>
+                    <label for="editColegio">Institucion:</label>
+                    <input type="text" id="editColegio" name="colegio" required>
+                </div>
+                <div>
+                    <button type="submit">Guardar cambios</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Modal para añadir estudiantes -->
+    <div id="addStudentModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeStudentModal()">&times;</span>
+            <h2>Añadir Estudiante</h2>
+            <form id="addStudentForm" action="/addStudent" method="POST">
+                <input type="hidden" id="selectedCourseId">
+                <label for="studentCode">Codigo del Estudiante:</label>
+                <input type="number" id="studentCode" name="studentCode" required>
+                <br>
+                <label for="studentName">Nombre del Estudiante:</label>
+                <input type="text" id="studentName" name="studentName" required>
+                <br>
+                <label for="studentAge">Edad:</label>
+                <input type="number" id="studentAge" name="studentAge" required>
+                <br>
+                <label for="studentEmail">Correo Electrónico:</label>
+                <input type="email" id="studentEmail" name="studentEmail" required>
+                <br>
+                <button type="button" id="saveStudentBtn">Guardar Estudiante</button>
+                <button type="button" id="finishStudentBtn" onclick="closeStudentModal()">Finalizar</button>
+                <!-- Campo de carga de CSV -->
+                <label for="csvFile">Cargar Estudiantes desde CSV:</label>
+                <input type="file" id="csvFile" accept=".csv">
+    
+                <!-- Botón para subir el CSV -->
+                <button type="button" id="uploadCSVBtn">Agregar por CSV</button>
+            </form>
+        </div>
+    </div>
+        <!-- Modal para mostrar estudiantes -->
+    <div id="studentListModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeStudentListModal()">&times;</span>
+            <h2>Lista de Estudiantes</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Seleccionar</th>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                    </tr>
+                </thead>
+                <tbody id="studentListTableBody">
+                <!-- Aquí se cargarán los estudiantes dinámicamente -->
+                </tbody>
+            </table>
+            <br>
+            <button id="btnEliminarSeleccionados" disabled>Eliminar Seleccionados</button>
+        </div>
+    </div>
+    <div id="modalFormatoEstCSV" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeStudentModal2()">&times;</span>
+            <h3>📄 Formato Correcto del Archivo CSV</h3>
+            <p>Para cargar estudiantes correctamente, tu archivo CSV debe seguir el siguiente formato:</p>
+        
+            <!-- Instrucciones sobre el formato esperado -->
+            <div class="instructions">
+                <p><strong>📋 Estructura esperada:</strong></p>
+                <ul>
+                    <li><strong>Columna 1:</strong> Código del Estudiante (Número)</li>
+                    <li><strong>Columna 2:</strong> Nombre del Estudiante (Texto, incluyendo acentos y caracteres especiales como é, á, ñ, etc.)</li>
+                    <li><strong>Columna 3:</strong> Edad del Estudiante (Número)</li>
+                    <li><strong>Columna 4:</strong> Correo Electrónico del Estudiante (Correo válido)</li>
+                </ul>
+                <p><strong>🔍 Nota:</strong> Asegúrate de guardar el archivo CSV con la codificación <strong>UTF-8</strong> para evitar problemas con caracteres especiales como acentos o eñes.</p>
+            </div>
+        
+            <!-- Ejemplo Visual del archivo CSV como imagen -->
+            <div class="example">
+                <p><strong>📎 Ejemplo de archivo CSV:</strong></p>
+                <img src="/public/images/ejemploEst-csv.png" alt="Ejemplo de archivo CSV" style="width: 100%; max-width: 600px; margin-top: 10px;">
+                <p><small><i>Recuerda que los datos deben estar separados por comas y no debe haber comas adicionales al final de cada fila.</i></small></p>
+            </div>
+        
+        </div>
+    </div> 
+    </div>       
+    
+
+
+    <!-- =========== Scripts =========  -->
+     
+    <!-- ====== ionicons ======= -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>

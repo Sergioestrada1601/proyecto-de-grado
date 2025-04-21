@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración</title>
+    <!-- ======= Styles ====== -->
+    <link rel="stylesheet" href="/public/css/configuracion.css">
+</head>
+
+<body>
+    <!-- ========================= Main ==================== -->
+    <div class="main">
+        <div class="perfil-container" id="perfilContainer">
+            <!-- Header de la configuración -->
+            <div class="perfil-header">
+                <img src="/public<%= datos.fotoPerfil %>" alt="Foto de perfil" class="foto-perfil">
+                <h2 class="nombre-usuario"><%= datos.nombreC %></h2>
+                <button class="btn-editar-perfil" id="btnEditarPerfil">Editar perfil</button>
+            </div>
+            <div id="successMessage" class="alert alert-success" style="display: none;"></div>
+            <!-- Información personal -->
+            <div class="perfil-info">
+                <h3>Información Personal</h3>
+                <p><strong>Correo electrónico:</strong> <%= datos.correo1 %></p>
+                <p><strong>Nombre de Usuario:</strong> <%= datos.nombreusuario %></p>
+                
+                <!-- Botón para cambiar contraseña -->
+                <button class="btn-cambiar-contraseña" id="btnCambiarContraseña">Cambiar contraseña</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para editar perfil -->
+    <div class="modal" id="modalEditarPerfil">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>Editar Perfil</h2>
+            <form id="configForm" action="/updateProfile" method="POST" enctype="multipart/form-data">
+                <!-- Nombre completo -->
+                <div class="form-group">
+                    <label for="nombreCompleto">Nombre Completo</label>
+                    <input type="text" id="nombreCompleto" name="nombreCompleto" value="<%= datos.nombreC %>" required>
+                </div>
+
+                <!-- Nombre de usuario -->
+                <div class="form-group">
+                    <label for="nombreUsuario">Nombre de Usuario</label>
+                    <input type="text" id="nombreUsuario" name="nombreUsuario" value="<%= datos.nombreusuario %>" required>
+                </div>
+
+                <!-- Correo electrónico -->
+                <div class="form-group">
+                    <label for="correo">Correo Electrónico</label>
+                    <input type="email" id="correo" name="correo" value="<%= datos.correo1 %>">
+                </div>
+
+                <!-- Foto de perfil -->
+                <div class="form-group">
+                    <label for="fotoPerfil">Cambiar Foto de Perfil</label>
+                    <input type="file" id="fotoPerfil" name="fotoPerfil" accept="image/*">
+                </div>
+
+                <!-- Botón para guardar cambios -->
+                <button type="submit" class="btn-guardar">Guardar Cambios</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para cambiar contraseña -->
+    <div class="modal" id="modalCambiarContraseña">
+        <div class="modal-content">
+            <span class="close" id="closeModalContraseña">&times;</span>
+            <h2>Cambiar Contraseña</h2>
+            <form id="changePasswordForm" action="/changePassword" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="oldPassword">Contraseña actual</label>
+                    <input type="password" id="oldPassword" name="oldPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">Nueva contraseña</label>
+                    <input type="password" id="newPassword" name="newPassword" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirmar nueva contraseña</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required>
+                </div>
+                <button type="submit" class="btn-guardar">Guardar Cambios</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- =========== Scripts ========= -->
+    <script src="/public/js/configuracionScript.js"></script>
+</body>
+
+</html>

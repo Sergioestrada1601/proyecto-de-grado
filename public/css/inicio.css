@@ -1,0 +1,126 @@
+/* inicio.css */
+.page-title {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 2rem;
+    color: #2c3e50;
+}
+
+  
+.cardBox {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 30px;
+  }
+  
+.info-card {
+    width: 280px;
+    height: 180px;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+  
+.info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+  
+.info-card h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #333;
+}
+  
+.iconBx {
+    font-size: 48px;
+    color: #007bff;
+}
+  
+  
+.card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    width: 200px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+.card:hover {
+    transform: translateY(-5px);
+}
+.card-header {
+    text-align: center;
+    padding: 20px;
+}
+.card-header ion-icon {
+    font-size: 2rem;
+    color: #3498db;
+    margin-bottom: 10px;
+}
+.card-header h2 {
+    font-size: 1.2rem;
+    color: #34495e;
+}
+  
+/* Contenedor de la sección de info */
+.info-content {
+    max-width: 800px;
+    margin: 0 auto 40px;
+    background: #fdfdfd;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+#infoText {
+    text-align: justify;
+    line-height: 1.6;
+    font-size: 18px;
+    padding: 0 10px;
+}
+  
+  
+/* Cuerpo de texto */
+.info-body {
+    padding: 20px;
+}
+.info-body h3 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: #2c3e50;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 8px;
+}
+.info-body p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+.info-body ul {
+    padding-left: 20px;
+    color: #555;
+    margin-bottom: 12px;
+}
+.info-body ul li {
+    margin-bottom: 8px;
+}
+  
+/* PDF */
+.pdf-container {
+    border-top: 1px solid #e0e0e0;
+}
+.pdf-container iframe {
+    width: 100%;
+    height: 500px;
+    border: none;
+}
+  

@@ -1,0 +1,238 @@
+/* ---------- CONTENEDORES Y GRUPOS ---------- */
+.select-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.select-item {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 200px;
+}
+
+/* ---------- SELECTS ---------- */
+.select-item select,
+#cursoResultadosSelect,
+.select-eva {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: 'Segoe UI', sans-serif;
+    outline: none;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease;
+}
+
+.select-item select:focus {
+    border-color: #007BFF;
+}
+
+/* ---------- BOTONES ---------- */
+.button-container {
+    margin-top: 25px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.button-container button,
+#btnGenerarResultados {
+    background-color: #5333ed;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-container button:hover,
+#btnGenerarResultados:hover {
+    background-color: #521fa3;
+}
+
+.btn-cerrar-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    cursor: pointer;
+}
+
+/* ---------- TÍTULOS Y ENCABEZADOS ---------- */
+/* 🔹 Título principal */
+h2 {
+    text-align: center;
+    color: #1a73e8; /* Azul profesional */
+    margin-bottom: 20px;
+}
+ .main h4 {
+    font-family: 'Segoe UI', sans-serif;
+    margin-bottom: 10px;
+    color: #333;
+}
+/* Tabla general de resultados */
+.table-container {
+    margin-top: 25px;
+    overflow-x: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    background: #fff;
+    padding: 15px;
+}
+
+#tablaResultadosGenerales {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 15px;
+}
+
+#tablaResultadosGenerales thead {
+    background-color: #5333ed;
+    color: white;
+}
+
+#tablaResultadosGenerales th,
+#tablaResultadosGenerales td {
+    border: 1px solid #dee2e6;
+    padding: 10px;
+    text-align: center;
+}
+
+#tablaResultadosGenerales tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+}
+
+#tablaResultadosGenerales tbody tr:hover {
+    background-color: #e2f0ff;
+    transition: background-color 0.3s;
+}
+
+/* Nivel visual con colores (reutilizable) */
+.nivel-bajo {
+    background-color: #ffcaca;
+    color: #b10000;
+    font-weight: bold;
+}
+
+.nivel-intermedio {
+    background-color: #fff4c2;
+    color: #9e7e00;
+    font-weight: bold;
+}
+
+.nivel-avanzado {
+    background-color: #c2ffd8;
+    color: #007f3f;
+    font-weight: bold;
+}
+
+.nivel-desconocido {
+    background-color: #eee;
+    color: #666;
+    font-weight: normal;
+}
+/* --- MODAL DE DETALLES --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.45);
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+.modal.mostrar {
+    display: flex;
+}
+
+.modal-content {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 15px;
+    width: 150%;
+    max-width: 1000px;
+    position: relative;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
+    font-family: 'Segoe UI', sans-serif;
+    max-height: 85vh;
+    overflow-y: auto;
+    border: 3px solid #007BFF;
+}
+
+/* --- TÍTULO DEL MODAL --- */
+.modal-content h3 {
+    text-align: center;
+    font-size: 22px;
+    color: #345677;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 10px;
+}
+
+/* --- BOTÓN DE CIERRE --- */
+.btn-cerrar-modal {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #555;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.btn-cerrar-modal:hover {
+    color: #c0392b;
+}
+
+/* --- CONTENIDO --- */
+#contenedorDetallesRA p {
+    font-size: 15px;
+    margin: 8px 0;
+    color: #333;
+}
+
+#contenedorDetallesRA strong {
+    color: #007bff;
+}
+
+#contenedorDetallesRA ul {
+    margin: 5px 0 15px 20px;
+    padding-left: 10px;
+}
+
+#contenedorDetallesRA li {
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #444;
+}
+.extra-col {
+    background-color: #e6f0ff; /* azul suave */
+    font-size: 13px;
+    vertical-align: top;
+    white-space: nowrap;
+    color: #333; /* texto visible */
+    font-family: 'Segoe UI', sans-serif;
+    border-left: 2px solid #ddd;
+}
+
+
